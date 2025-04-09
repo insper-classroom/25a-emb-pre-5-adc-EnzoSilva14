@@ -25,14 +25,17 @@ void data_task(void *p) {
 
 void process_task(void *p) {
     int data = 0;
-
+    int media = 0;
+    int lista[5] = {0, 0, 0, 0, 0};
+    int i = 0;
     while (true) {
         if (xQueueReceive(xQueueData, &data, 100)) {
             // implementar filtro aqui!
-
-
-
-
+            i = (i < 4) ? i + 1 : 0;
+            lista[i] = data;
+            media = (lista[0] + lista[1] + lista[2] + lista[3] + lista[4]) / 5;
+            printf("Média móvel: %d\n", media);
+    
             // deixar esse delay!
             vTaskDelay(pdMS_TO_TICKS(50));
         }
